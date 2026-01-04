@@ -257,7 +257,8 @@ sensor:
       # replaced by:
       filters:
         - lambda: |-
-            return x * id(flow1_total_multiplier);
+          return x * id(flow1_total_multiplier);
+          
     # on_value:
     #   then:
     #     - light.turn_on:
@@ -296,7 +297,7 @@ sensor:
     # replaced by:
     filters:
       - lambda: |-
-          return x * id(flow2_multiplier);
+        return x * id(flow2_multiplier);
     total:
       id: sens_2_sensor_pulse_meter_total
       name: "Flow2 Total Consumption"
@@ -310,7 +311,7 @@ sensor:
       # replaced by:
       filters:
       - lambda: |-
-          return x * id(flow2_total_multiplier);
+        return x * id(flow2_total_multiplier);
 
     # on_value:
     #   then:
@@ -363,7 +364,7 @@ number:
     initial_value: 0.00172
     set_action:
       - lambda: |-
-          id(flow1_multiplier) = x;
+        id(flow1_multiplier) = x;
 
   - platform: template
     name: "Flow1 total multiplier"
@@ -375,7 +376,7 @@ number:
     initial_value: 0.00163
     set_action:
       - lambda: |-
-          id(flow1_total_multiplier) = x;
+        id(flow1_total_multiplier) = x;
 # sensor 2:
   - platform: template
     name: "Flow2 multiplier"
@@ -388,7 +389,7 @@ number:
     initial_value: 0.00172
     set_action:
       - lambda: |-
-          id(flow2_multiplier) = x;
+        id(flow2_multiplier) = x;
 
   - platform: template
     name: "Flow2 total multiplier"
@@ -400,5 +401,5 @@ number:
     initial_value: 0.00163
     set_action:
       - lambda: |-
-          id(flow2_total_multiplier) = x;
+        id(flow2_total_multiplier) = x;
 
