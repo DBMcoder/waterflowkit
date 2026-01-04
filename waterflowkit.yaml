@@ -1,3 +1,25 @@
+# added these globals to use the correct multiply values for the different flow sensors
+globals:
+  - id: flow1_multiplier
+    type: float
+    restore_value: true
+    initial_value: '0.00172'
+
+  - id: flow1_total_multiplier
+    type: float
+    restore_value: true
+    initial_value: '0.00163'
+
+  - id: flow2_multiplier
+    type: float
+    restore_value: true
+    initial_value: '0.00172'
+
+  - id: flow2_total_multiplier
+    type: float
+    restore_value: true
+    initial_value: '0.00163'
+
 #Name of device
 substitutions:
   device_name: waterflowkit
@@ -217,8 +239,12 @@ sensor:
     name: "Flow1 Current water usage"
     icon: "mdi:water-pump"
     update_interval: 5s
+    #filters:
+    #  - multiply: 0.00172  # Updated multiplier based on calibration
+    # replaced by:
     filters:
-      - multiply: 0.00172  # Updated multiplier based on calibration
+      - lambda: |-
+          return x * id(flow1_multiplier);
     total:
       id: sensor_pulse_meter_total
       name: "Flow1 Total Consumption"
@@ -227,8 +253,12 @@ sensor:
       state_class: total_increasing
       device_class: water
       accuracy_decimals: 3
+      #filters:
+      #  - multiply: 0.00163
+      # replaced by:
       filters:
-        - multiply: 0.00163
+        - lambda: |-
+          return x * id(flow1_total_multiplier);
     # on_value:
     #   then:
     #     - light.turn_on:
@@ -262,8 +292,12 @@ sensor:
     name: "Flow2 Current water usage"
     icon: "mdi:water-pump"
     update_interval: 5s
+    #filters:
+    #  - multiply: 0.00172  # Updated multiplier based on calibration
+    # replaced by:
     filters:
-      - multiply: 0.00172  # Updated multiplier based on calibration
+      - lambda: |-
+        return x * id(flow2_multiplier);
     total:
       id: sens_2_sensor_pulse_meter_total
       name: "Flow2 Total Consumption"
@@ -272,8 +306,13 @@ sensor:
       state_class: total_increasing
       device_class: water
       accuracy_decimals: 3
+      #filters:
+      #  - multiply: 0.00163
+      # replaced by:
       filters:
-        - multiply: 0.00163
+      - lambda: |-
+          return x * id(flow2_total_multiplier);
+
     # on_value:
     #   then:
     #     - light.turn_on:
@@ -311,3 +350,57 @@ text_sensor:
     update_interval: 5h
     lambda: |-
       return {"${waterflowkit_software_version}"};
+# All of underneath is added to make the multiply factor selectable in Home Assistant for each flow sensor
+# Sensor 1:
+number:
+  - platform: template
+    name: "Flow1 multiplier"
+    id: flow1_multiplier_number
+    optimistic: true
+    restore_value: true
+    min_value: 0.0001
+    max_value: 1
+    step: 0.000001
+    initial_value: 0.00172
+    set_action:
+      - lambda: |-
+          id(flow1_multiplier) = x;
+
+  - platform: template
+    name: "Flow1 total multiplier"
+    optimistic: true
+    restore_value: true
+    min_value: 0.0001
+    max_value: 1
+    step: 0.000001
+    initial_value: 0.00163
+    set_action:
+      - lambda: |-
+          id(flow1_total_multiplier) = x;
+# sensor 2:
+number:
+  - platform: template
+    name: "Flow2 multiplier"
+    id: flow2_multiplier_number
+    optimistic: true
+    restore_value: true
+    min_value: 0.0001
+    max_value: 1
+    step: 0.000001
+    initial_value: 0.00172
+    set_action:
+      - lambda: |-
+          id(flow2_multiplier) = x;
+
+  - platform: template
+    name: "Flow2 total multiplier"
+    optimistic: true
+    restore_value: true
+    min_value: 0.0001
+    max_value: 1
+    step: 0.000001
+    initial_value: 0.00163
+    set_action:
+      - lambda: |-
+          id(flow2_total_multiplier) = x;
+
