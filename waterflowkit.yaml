@@ -257,7 +257,7 @@ sensor:
       # replaced by:
       filters:
         - lambda: |-
-          return x * id(flow1_total_multiplier);
+            return x * id(flow1_total_multiplier);
     # on_value:
     #   then:
     #     - light.turn_on:
@@ -296,7 +296,7 @@ sensor:
     # replaced by:
     filters:
       - lambda: |-
-        return x * id(flow2_multiplier);
+          return x * id(flow2_multiplier);
     total:
       id: sens_2_sensor_pulse_meter_total
       name: "Flow2 Total Consumption"
@@ -350,8 +350,8 @@ text_sensor:
     lambda: |-
       return {"${waterflowkit_software_version}"};
 # All of underneath is added to make the multiply factor selectable in Home Assistant for each flow sensor
-# Sensor 1:
 number:
+#Flow sensor 1:
   - platform: template
     name: "Flow1 multiplier"
     id: flow1_multiplier_number
@@ -377,7 +377,6 @@ number:
       - lambda: |-
           id(flow1_total_multiplier) = x;
 # sensor 2:
-number:
   - platform: template
     name: "Flow2 multiplier"
     id: flow2_multiplier_number
