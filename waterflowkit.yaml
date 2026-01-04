@@ -157,12 +157,13 @@ sensor:
   - platform: adc
     id: source_sensor
     pin: GPIO36
-    attenuation: 11db
+    attenuation: 12db
     internal: true
 
   - platform: resistance
     id: resistance_sensor
     sensor: source_sensor
+    configuration: UPSTREAM
     resistor: 50kOhm
     internal: true
 
@@ -179,12 +180,13 @@ sensor:
   - platform: adc
     id: source_sensor2
     pin: GPIO39
-    attenuation: 11db
+    attenuation: 12db
     internal: true
 
   - platform: resistance
     id: resistance_sensor2
     sensor: source_sensor2
+    configuration: UPSTREAM
     resistor: 50kOhm
     internal: true
 
