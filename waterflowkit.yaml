@@ -255,9 +255,9 @@ sensor:
       #filters:
       #  - multiply: 0.00163
       # replaced by:
-      filters:
-        - lambda: |-
-          return x * id(flow1_total_multiplier);
+    filters:
+      - lambda: |-
+        return x * id(flow1_total_multiplier);
           
     # on_value:
     #   then:
@@ -309,7 +309,7 @@ sensor:
       #filters:
       #  - multiply: 0.00163
       # replaced by:
-      filters:
+    filters:
       - lambda: |-
         return x * id(flow2_total_multiplier);
 
