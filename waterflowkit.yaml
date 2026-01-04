@@ -51,8 +51,7 @@ ota:
   - platform: esphome
   
 dashboard_import:
-  package_import_url: github://smarthomeshop/waterflowkit/waterflowkit.yaml@main
-
+  package_import_url: github://DBMcoder/waterflowkit/waterflowkit.yaml@main
 wifi:
   # remove leading '#' and fill in your wifi details
   ssid: !secret wifi_ssid
